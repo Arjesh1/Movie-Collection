@@ -1,9 +1,9 @@
 .wrapper{
-    min-height: 100vh;
-    color: rgb(29, 158, 158) !important;
+  min-height: 100vh;
+  color: rgb(29, 158, 158) !important;
 }
 
 hr{
-    opacity: 100 !important;
-    border-top: 5px solid!important;
+  opacity: 100 !important;
+  border-top: 5px solid!important;
 }

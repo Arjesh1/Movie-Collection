@@ -1,37 +1,44 @@
-import React from "react"
-import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
+import React from "react";
+import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Card";
 
-export const CustomCard = ({searchMovie}) =>{
-    return (
-        <Card style={{ width: '18rem' }}>
-      <Card.Img variant="top" src={searchMovie?.Poster} />
+export const CustomCard = ({ searchedMovie, func }) => {
+  return (
+    <Card style={{ width: "20rem", color: "black" }}>
+      <Card.Img variant="top" src={searchedMovie?.Poster} />
       <Card.Body>
-        <Card.Title>{searchMovie?.Title}</Card.Title>
-        <Card.Text>
-          {searchMovie?.Plot?.slice(0, 100)}
+        <Card.Title>{searchedMovie?.Title}</Card.Title>
+        <Card.Text className="mt-4 mb-4">
+          {searchedMovie?.Plot?.slice(0, 50)}...
         </Card.Text>
-        <Card.Text>
-          Year: {searchMovie?.Year}
-        </Card.Text>
-        <Card.Text>
-          Rating: {searchMovie?.imdbRating}
-        </Card.Text>
-        <Card.Text>
-          Language: {searchMovie?.Language}
-        </Card.Text>
-        <div className="d-flex justify-content-between"> 
-            <Button variant="warning">Happy</Button>
-            <Button variant="info">Lazy</Button>
-        
+        {!searchedMovie.mode ? (
+          <>
+            <div className="d-flex justify-content-between">
+              <Button variant="warning" onClick={() => func("happy")}>
+                Happy
+              </Button>
+              <Button variant="info" onClick={() => func("lazy")}>
+                Lazy
+              </Button>
             </div>
 
-            <div className="d-grid mt-2">
-            <Button variant="danger">Delete</Button>
-        
+            <div className="d-flex justify-content-center mt-3">
+              <Button
+                onClick={() => func(searchedMovie.imdbID)}
+                variant="danger rounded-circle"
+              >
+                X
+              </Button>
             </div>
-        
+          </>
+        ) : (
+          <div className="d-grid mt-3">
+            <Button onClick={() => func(searchedMovie.imdbID)} variant="danger">
+              Delete
+            </Button>
+          </div>
+        )}
       </Card.Body>
     </Card>
-    )
-}
+  );
+};

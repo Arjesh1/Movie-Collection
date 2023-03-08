@@ -1,29 +1,37 @@
-import './App.css';
-import { SearchForm } from './components/SearchForm';
-import { Button, Container, Row, Col } from 'react-bootstrap';
-import { Display } from './components/Display';
+import "./App.css";
+import { Container, Row, Col } from "react-bootstrap";
+import { SearchForm } from "./components/SearchForm";
+import { Display } from "./components/Display";
+import { useState } from "react";
 
 function App() {
-  return (
-    <div className='wrapper ' >
-      <Container>
+  const [movieList, setMovieList] = useState([]);
 
-        {/* title */}
+  const addMoveToList = (movie) => {
+    const tempArg = movieList.filter((itme) => itme.imdbID !== movie.imdbID);
+    setMovieList([...tempArg, movie]);
+  };
+
+  const handleOnDelete = (imdbID) => {
+    if (window.confirm("Are you sure you want to delete?")) {
+      setMovieList(movieList.filter((item) => item.imdbID !== imdbID));
+    }
+  };
+
+  return (
+    <div className="wrapper bg-dark ">
+      <Container>
         <Row>
           <Col>
-          <h1 className='mt-5 text-center wraning'>
-            My Movie Collection
-          </h1>
+            <h1 className="mt-5 text-center"> My Movie Collection</h1>
           </Col>
         </Row>
-        <hr className='hr' />
+        <hr />
 
-        <SearchForm />
-        <Display/>
+        <SearchForm addMoveToList={addMoveToList} />
 
-       
+        <Display movieList={movieList} handleOnDelete={handleOnDelete} />
       </Container>
-      
     </div>
   );
 }
